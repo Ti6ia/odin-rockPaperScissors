@@ -74,7 +74,7 @@ function game(){
         }else{
             console.log("c'è qualcosa che non va in game()");
         }
-    }
+    } 
     if(player > computer){
         return "YOU WIN THE GAME!";
     }else{
