@@ -14,13 +14,10 @@ function computerPlay(){
     }
     return x;
 }
-
-let computerSelection = computerPlay();
-console.log(computerSelection);
+let computerSelection;
 
 /* decisione utente */
-let playerSelection = prompt('Con cosa giochi?', 'rock/paper/scissor').toLowerCase();
-console.log(playerSelection);
+let playerSelection; 
 
 /* giocata turno */
 function playRound(playerSelection, computerSelection){
@@ -36,32 +33,54 @@ function playRound(playerSelection, computerSelection){
         return "You Lose! Rock beats Scissor";
     }else if(playerSelection === "rock" && computerSelection === "scissor"){
         return "You Won! Rock beats Scissor";
+    }else if(playerSelection === "rock" && computerSelection === "rock"){
+        return "skip";
+    }else if(playerSelection === "paper" && computerSelection === "paper"){
+        return "skip";
+    }else if(playerSelection === "scissor" && computerSelection === "scissor"){
+        return "skip";
     }else{
         return "C'è qualche problema in playRound";
     }
 }
-console.log(playRound(playerSelection, computerSelection));
-console.log(playRound(playerSelection, computerSelection).substring(0,8));
 
 /* game */
 function game(){
     let player = 0;
     let computer = 0;
-    console.log("game pre ciclo")
-    for(let i = 0; i < 5; i++){
-        if(playRound.substring(0,8) == "You Lose"){
+    console.log("Inizio partita: ")
+    /** inizio partita */
+    for(let i = 1; i < 6; i++){
+        if(i<5){
+            console.log("Turno: " + i);
+        }else{
+            console.log("Ultimo turno!");
+        }
+        
+        /** chosing rock/paper/scissor cpu e utente */
+        computerSelection = computerPlay();
+        /*console.log("scelta pc fatta: " + computerSelection);*/
+        playerSelection = prompt('Con cosa giochi?', 'rock/paper/scissor').toLowerCase();
+        /*console.log("scelta utente fatta: " + playerSelection);*/
+
+        if(playRound(playerSelection, computerSelection).substring(0,8) == "You Lose"){
             computer++;
-        }else if(playRound.substring(0,8) == "You Won!"){
+            console.log("CPU win");
+        }else if(playRound(playerSelection, computerSelection).substring(0,7) == "You Won"){
             player++;
+            console.log("Player WIN!");
+        }else if(playRound(playerSelection, computerSelection).substring(0,4) == "skip"){
+            i--;
         }else{
             console.log("c'è qualcosa che non va in game()");
         }
-        console.count("Game");
     }
     if(player > computer){
-        return "You won the game!";
+        return "YOU WIN THE GAME!";
     }else{
         return "You lost the game :(";
     }
 }
 
+
+console.log(game());
